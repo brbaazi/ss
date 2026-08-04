@@ -7,6 +7,8 @@
 <meta name="description" content="ابدأ رحلتك في التداول مع شركائنا الموثوقين. قناة تيليجرام وحسابات الوساطة الرسمية." />
 <meta name="theme-color" content="#000000" />
 
+<link rel="icon" href="images/logo.png" type="image/png" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -26,11 +28,17 @@
   --green-line:rgba(126,217,87,.28);
   --green-glow:rgba(126,217,87,.35);
 
+  /* التوهج الأزرق — خاص ببطاقات الوسطاء فقط */
+  --blue:#4d9eff;
+  --blue-line:rgba(77,158,255,.32);
+  --blue-glow:rgba(77,158,255,.4);
+
   /* الأسطح الزجاجية */
   --glass:rgba(255,255,255,.045);
   --glass-hover:rgba(255,255,255,.08);
   --border:rgba(255,255,255,.1);
   --muted:rgba(255,255,255,.58);
+  --plate:rgba(255,255,255,.06);   /* خلفية لوحة الشعار */
 
   /* الخط والشكل */
   --font:'Tajawal',system-ui,'Segoe UI',sans-serif;
@@ -117,9 +125,13 @@ body::after{
   animation:spin-back 8s linear infinite;
 }
 
-/* استبدل هذا النص بصورة الشعار: <img src="logo.png" alt="ArabeTrading"> */
-.logo span{font-size:1.9rem;font-weight:700;color:var(--green);letter-spacing:-.02em}
-.logo img{width:100%;height:100%;object-fit:cover}
+/* الشعار المحلي: contain للحفاظ على النسبة ومنع القص */
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:14px;
+}
 
 h1{
   font-size:clamp(1.9rem,7vw,2.4rem);
@@ -186,7 +198,7 @@ h1{
 .copy.done{background:transparent;color:var(--green);box-shadow:inset 0 0 0 1px var(--green-line)}
 
 /* ============================================================
-   6. الأزرار الكبيرة
+   6. زر تيليجرام
    ============================================================ */
 .links{
   display:flex;
@@ -219,6 +231,7 @@ h1{
   transform:translateX(100%);
   opacity:0;
   transition:transform .75s var(--ease),opacity .2s var(--ease);
+  pointer-events:none;
 }
 .btn:hover::before{transform:translateX(-100%);opacity:1}
 
@@ -236,22 +249,137 @@ h1{
   font-weight:700;
 }
 
-.btn__note{
-  display:block;
-  margin-top:.15rem;
-  font-size:.85rem;
-  font-weight:400;
-  color:var(--muted);
-}
-
-/* الزر المميّز */
 .btn--primary{
   border-color:var(--green-line);
   box-shadow:0 0 24px -12px var(--green-glow);
 }
 
 /* ============================================================
-   7. التذييل
+   7. بطاقات الوسطاء
+   ============================================================ */
+.broker{
+  position:relative;
+  overflow:hidden;
+  display:block;
+  padding:1.15rem 1.15rem 1rem;
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  text-align:right;
+  transition:transform var(--fast) var(--ease),
+             background var(--fast) var(--ease),
+             border-color var(--fast) var(--ease),
+             box-shadow var(--fast) var(--ease);
+}
+
+.broker::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.07) 50%,transparent 75%);
+  transform:translateX(100%);
+  opacity:0;
+  transition:transform .75s var(--ease),opacity .2s var(--ease);
+  pointer-events:none;
+}
+.broker:hover::before{transform:translateX(-100%);opacity:1}
+
+/* التوهج الأزرق — استبدل var(--blue-glow) بـ var(--green-glow) للعودة للأخضر [1/3] */
+.broker:hover{
+  transform:translateY(-4px);
+  background:var(--glass-hover);
+  border-color:var(--blue-line);
+  box-shadow:0 0 34px -8px var(--blue-glow);
+}
+.broker:active{transform:scale(.985)}
+
+/* الصف العلوي: الشعار + النص */
+.broker__head{
+  display:flex;
+  align-items:center;
+  gap:.9rem;
+}
+
+/* لوحة الشعار: أبعاد ثابتة، والصورة بداخلها لا تتمدد */
+.broker__logo{
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  width:88px;
+  height:52px;
+  padding:8px;
+  background:var(--plate);
+  border:1px solid var(--border);
+  border-radius:14px;
+  transition:background var(--fast) var(--ease),border-color var(--fast) var(--ease);
+}
+
+.broker__logo img{
+  display:block;
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+}
+
+/* [2/3] */
+.broker:hover .broker__logo{
+  background:rgba(255,255,255,.1);
+  border-color:var(--blue-line);
+}
+
+/* استعمل هذا الصنف فقط إذا كان الشعار داكنًا وغير واضح:
+   <span class="broker__logo broker__logo--white"> */
+.broker__logo--white{
+  background:var(--white);
+  border-color:transparent;
+}
+.broker:hover .broker__logo--white{background:var(--white)}
+
+/* النصوص */
+.broker__text{display:flex;flex-direction:column;min-width:0}
+
+.broker__name{
+  direction:ltr;
+  text-align:right;
+  font-size:1.15rem;
+  font-weight:700;
+  letter-spacing:-.01em;
+  line-height:1.3;
+}
+
+.broker__sub{
+  margin-top:.15rem;
+  font-size:.88rem;
+  font-weight:400;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+/* زر الإجراء داخل البطاقة */
+.broker__cta{
+  display:block;
+  margin-top:1rem;
+  padding:.8rem 1rem;
+  font-size:.95rem;
+  font-weight:700;
+  text-align:center;
+  color:var(--black);
+  background:var(--green);
+  border-radius:14px;
+  transition:transform var(--fast) var(--ease),box-shadow var(--fast) var(--ease);
+}
+
+/* [3/3] */
+.broker:hover .broker__cta{
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px -6px var(--blue-glow);
+}
+
+/* ============================================================
+   8. التذييل
    ============================================================ */
 footer{
   margin-top:2.5rem;
@@ -262,7 +390,7 @@ footer{
 }
 
 /* ============================================================
-   8. الحركات
+   9. الحركات
    ============================================================ */
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes spin-back{to{transform:rotate(-360deg)}}
@@ -275,7 +403,7 @@ footer{
 }
 
 /* ============================================================
-   9. الوصولية والاستجابة
+   10. الوصولية والاستجابة
    ============================================================ */
 :focus-visible{outline:2px solid var(--green);outline-offset:3px}
 
@@ -289,9 +417,16 @@ footer{
   .btn{padding:1rem}
 }
 
+@media (max-width:360px){
+  .broker__logo{width:72px;height:46px}
+  .broker__name{font-size:1.05rem}
+  .broker__sub{font-size:.82rem}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .reveal{opacity:1;transform:none}
+  .broker::before,.btn::before{display:none}
 }
 </style>
 </head>
@@ -302,7 +437,9 @@ footer{
   <!-- الشعار والعنوان -->
   <header class="reveal" style="--delay:0ms">
     <div class="logo-ring">
-      <div class="logo"><span>AT</span></div>
+      <div class="logo">
+        <img src="images/logo.png" alt="شعار ArabeTrading" width="104" height="104" />
+      </div>
     </div>
     <h1>ArabeTrading</h1>
     <p class="desc">ابدأ رحلتك في التداول مع شركائنا الموثوقين.</p>
@@ -325,14 +462,32 @@ footer{
       <span class="btn__title">📲 الانضمام إلى قناة تيليجرام</span>
     </a>
 
-    <a class="btn reveal" style="--delay:240ms" href="#">
-      <span class="btn__title">⭐ افتح حساب Exness</span>
-      <span class="btn__note">أفضل وسيط للتداول.</span>
+    <!-- بطاقة Exness — البطاقة كاملة رابط، لذلك الزر <span> وليس <a> -->
+    <a class="broker reveal" style="--delay:240ms" href="#">
+      <div class="broker__head">
+        <span class="broker__logo">
+          <img src="images/exness.png" alt="شعار Exness" loading="lazy" width="240" height="80" />
+        </span>
+        <span class="broker__text">
+          <span class="broker__name">Exness</span>
+          <span class="broker__sub">أفضل وسيط لتداول الفوركس والذهب</span>
+        </span>
+      </div>
+      <span class="broker__cta">افتح حساب Exness</span>
     </a>
 
-    <a class="btn reveal" style="--delay:300ms" href="#">
-      <span class="btn__title">⭐ افتح حساب JustMarkets</span>
-      <span class="btn__note">أفضل وسيط للتداول.</span>
+    <!-- بطاقة JustMarkets -->
+    <a class="broker reveal" style="--delay:300ms" href="#">
+      <div class="broker__head">
+        <span class="broker__logo">
+          <img src="images/justmarkets.png" alt="شعار JustMarkets" loading="lazy" width="240" height="80" />
+        </span>
+        <span class="broker__text">
+          <span class="broker__name">JustMarkets</span>
+          <span class="broker__sub">وسيط موثوق بفروقات أسعار منخفضة</span>
+        </span>
+      </div>
+      <span class="broker__cta">افتح حساب JustMarkets</span>
     </a>
 
   </nav>
