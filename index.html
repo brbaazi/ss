@@ -11,9 +11,20 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
 
-<link rel="stylesheet" href="style.css?v=5" />
+<!-- الشعار يُحمّل بأولوية قصوى قبل أي شيء آخر -->
+<link rel="preload" as="image" href="images/logo.png" fetchpriority="high" />
+
+<!-- الخط يُحمّل دون تعطيل عرض الصفحة -->
+<link rel="preload" as="style"
+      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" />
+</noscript>
+
+<link rel="stylesheet" href="style.css?v=6" />
 </head>
 
 <body>
@@ -92,7 +103,7 @@
   <footer class="reveal" style="--delay:360ms">© 2026 ArabeTrading</footer>
 </main>
 
-<script src="animation.js?v=5" defer></script>
-<script src="script.js?v=5"></script>
+<script src="animation.js?v=6" defer></script>
+<script src="script.js?v=6" defer></script>
 </body>
 </html>

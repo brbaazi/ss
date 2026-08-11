@@ -56,25 +56,26 @@ body{
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 
-/* توهج أخضر خفيف في الخلفية */
+/* توهج أخضر خفيف في الخلفية
+   ملاحظة: أُزيل filter:blur(100px) لأنه أغلى تأثير في الصفحة،
+   والتدرج الشعاعي ناعم أصلاً — النتيجة البصرية شبه مطابقة */
 body::before,body::after{
   content:"";
   position:fixed;
   border-radius:50%;
-  filter:blur(100px);
   pointer-events:none;
   z-index:0;
 }
 body::before{
   top:-16vh;left:50%;transform:translateX(-50%);
   width:min(34rem,95vw);height:min(34rem,95vw);
-  background:radial-gradient(circle,var(--green-glow),transparent 68%);
+  background:radial-gradient(circle,var(--green-glow) 0%,rgba(126,217,87,.12) 40%,transparent 72%);
   opacity:.55;
 }
 body::after{
   bottom:-20vh;left:-10vw;
   width:min(24rem,80vw);height:min(24rem,80vw);
-  background:radial-gradient(circle,#0b1408,transparent 70%);
+  background:radial-gradient(circle,#0b1408 0%,rgba(11,20,8,.5) 45%,transparent 74%);
 }
 
 /* ============================================================
@@ -141,8 +142,8 @@ h1{
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   text-align:right;
 }
 
@@ -203,8 +204,8 @@ h1{
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   transition:transform var(--fast) var(--ease),
              background var(--fast) var(--ease),
              border-color var(--fast) var(--ease),
@@ -284,8 +285,8 @@ h1{
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
   text-align:right;
   transition:transform var(--fast) var(--ease),
              background var(--fast) var(--ease),
@@ -357,14 +358,6 @@ h1{
   background:rgba(255,255,255,.1);
   border-color:var(--blue-line);
 }
-
-/* استعمل هذا الصنف فقط إذا كان الشعار داكنًا وغير واضح:
-   <span class="broker__logo broker__logo--white"> */
-.broker__logo--white{
-  background:var(--white);
-  border-color:transparent;
-}
-.broker:hover .broker__logo--white{background:var(--white)}
 
 /* النصوص */
 .broker__text{display:flex;flex-direction:column;min-width:0}
@@ -499,3 +492,33 @@ footer{
   .stage canvas{transition:none}
   .stage canvas.is-ready{opacity:.5}
 }
+
+/* ============================================================
+   12. تحسينات الأداء على الهواتف
+   ============================================================ */
+
+/* backdrop-filter مكلف جدًا على معالجات الهواتف الرسومية:
+   يُستبدل بخلفية شبه شفافة أغمق قليلاً — الفرق البصري
+   غير ملحوظ فوق خلفية سوداء، والمكسب في الأداء كبير */
+@media (max-width:768px){
+  .card,.btn,.broker{
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    background:rgba(255,255,255,.055);
+  }
+  .btn:hover,.broker:hover{background:rgba(255,255,255,.085)}
+}
+
+/* على الأجهزة اللمسية لا فائدة من تأثيرات hover — إزالتها
+   تمنع حسابات ورسمًا لا يراها المستخدم أبدًا */
+@media (hover:none){
+  .btn::before,.broker::before{display:none}
+  .btn:hover,.broker:hover,.copy:hover{transform:none}
+  .btn:hover{box-shadow:0 0 24px -12px var(--green-glow)}
+  .broker:hover{box-shadow:none;border-color:var(--border)}
+  .broker:hover .broker__logo{background:var(--plate);border-color:var(--border)}
+  .broker:hover .broker__cta{transform:none;box-shadow:none}
+}
+
+/* عزل الشعار الدوّار في طبقة مستقلة حتى لا يعيد رسم ما حوله */
+.logo-ring,.logo{will-change:transform}
