@@ -419,10 +419,10 @@ footer{
    10. الوصولية والاستجابة
    ============================================================ */
 :focus-visible{
-  outline:2px solid var(--green);
+  outline:2px solid #0b5d1e;
   outline-offset:4px;
   border-radius:14px;
-  box-shadow:0 0 0 4px var(--green-soft);
+  box-shadow:0 0 0 4px rgba(11,93,30,.25);
 }
 
 .sr-only{
