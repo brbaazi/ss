@@ -495,8 +495,8 @@ footer{
   content:"";
   position:absolute;inset:0;
   background:
-    linear-gradient(to right,var(--black),transparent 18%,transparent 82%,var(--black)),
-    linear-gradient(to bottom,var(--black),transparent 22%,transparent 74%,var(--black));
+    linear-gradient(to right,var(--black),transparent 10%,transparent 90%,var(--black)),
+    linear-gradient(to bottom,transparent 0,transparent 88%,var(--black));
   pointer-events:none;
 }
 
@@ -508,11 +508,11 @@ footer{
   opacity:0;
   transition:opacity .8s var(--ease);
 }
-.stage canvas.is-ready{opacity:.9}
+.stage canvas.is-ready{opacity:1}
 
 @media (max-width:380px){
   .stage{aspect-ratio:16/8}
-  .stage canvas.is-ready{opacity:.8}
+  .stage canvas.is-ready{opacity:.95}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -658,7 +658,7 @@ footer{
   var COLS     = 0;                    /* معطّلة دائمًا */
   var DPR_CAP  = MOBILE ? 1 : 1.4;
   var FPS      = MOBILE ? 20 : 30;
-  var GLOW     = false;                /* shadowBlur معطّل بالكامل — أغلى عملية في Canvas */
+  var GLOW     = !MOBILE;              /* توهج خفيف على الأجهزة القوية فقط */
   var BEAM     = !MOBILE;              /* تدرج شعاع الروبوت — معطّل على الهاتف */
   var MIN_DT   = 1000 / FPS;
 
@@ -745,7 +745,7 @@ footer{
     ctx.lineWidth = 1;
     for (i = 0; i < ROWS; i++) {
       z = -120 + i * step * 1.6 + scroll;
-      a = 0.13 * (1 - (z > 0 ? z : 0) / 760);
+      a = 0.22 * (1 - (z > 0 ? z : 0) / 760);
       if (a <= 0.008) continue;
       ctx.strokeStyle = "rgba(" + G + "," + a.toFixed(3) + ")";
       ctx.beginPath();
@@ -802,7 +802,7 @@ footer{
       /* الفتيل */
       proj(x, yOf(k.h), 0); var wtx = _px, wty = _py, ws = _ps;
       proj(x, yOf(k.l), 0);
-      ctx.strokeStyle = "rgba(" + G + "," + (0.26 + glow * 0.45).toFixed(3) + ")";
+      ctx.strokeStyle = "rgba(" + G + "," + (0.4 + glow * 0.45).toFixed(3) + ")";
       ctx.lineWidth = ws * 1.4 > 1 ? ws * 1.4 : 1;
       ctx.beginPath();
       ctx.moveTo(wtx, wty);
@@ -816,12 +816,12 @@ footer{
         proj(x + CX[i], yBot, CZ[i]); bx[i] = _px; by[i] = _py;
       }
 
-      var edge = "rgba(" + G + "," + (0.3 + glow * 0.42).toFixed(3) + ")";
+      var edge = "rgba(" + G + "," + (0.45 + glow * 0.45).toFixed(3) + ")";
       /* الوجه الجانبي المرئي فقط (حسب اتجاه الدوران) — بدل أربعة أوجه */
-      if (sa > 0) face(1, 2, "rgba(" + G + ",0.09)", null);
-      else        face(3, 0, "rgba(" + G + ",0.09)", null);
+      if (sa > 0) face(1, 2, "rgba(" + G + ",0.16)", null);
+      else        face(3, 0, "rgba(" + G + ",0.16)", null);
       /* الوجه الأمامي */
-      face(0, 1, "rgba(" + G + "," + (0.15 + glow * 0.14).toFixed(3) + ")", edge);
+      face(0, 1, "rgba(" + G + "," + (0.26 + glow * 0.22).toFixed(3) + ")", edge);
 
       /* الوجه العلوي المضيء */
       if (GLOW && glow > 0.02) {
@@ -834,7 +834,7 @@ footer{
       ctx.lineTo(tx[2], ty[2]);
       ctx.lineTo(tx[3], ty[3]);
       ctx.closePath();
-      ctx.fillStyle = "rgba(" + G + "," + (0.45 + glow * 0.45).toFixed(3) + ")";
+      ctx.fillStyle = "rgba(" + G + "," + (0.62 + glow * 0.38).toFixed(3) + ")";
       ctx.fill();
       if (ctx.shadowBlur) ctx.shadowBlur = 0;
     }
@@ -866,7 +866,7 @@ footer{
       ctx.shadowColor = "rgba(" + G + ",0.8)";
       ctx.shadowBlur = 12 * fit;
     }
-    ctx.strokeStyle = "rgba(" + G + ",0.72)";
+    ctx.strokeStyle = "rgba(" + G + ",0.92)";
     ctx.lineWidth = fit * 2 > 1.2 ? fit * 2 : 1.2;
     ctx.lineJoin = "round";
     ctx.lineCap = "round";
