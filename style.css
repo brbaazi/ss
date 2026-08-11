@@ -125,9 +125,10 @@ h1{
 }
 
 .desc{
-  max-width:24rem;
-  margin:.6rem auto 0;
-  font-size:1rem;
+  max-width:20rem;
+  margin:.5rem auto 0;
+  font-size:.85rem;
+  line-height:1.6;
   color:var(--muted);
 }
 
@@ -466,7 +467,7 @@ footer{
   aspect-ratio:16/7;      /* يحجز المساحة مسبقًا — لا قفزات في التخطيط */
   pointer-events:none;
   user-select:none;
-  contain:strict;         /* يعزل الرسم عن باقي الصفحة */
+  contain:layout paint;   /* عزل بدون تقييد الحجم */
 }
 
 /* تلاشي الحواف ليندمج مع الخلفية السوداء */
