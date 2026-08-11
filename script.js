@@ -17,12 +17,17 @@
   var MOBILE = (window.innerWidth < 700) ||
                (navigator.maxTouchPoints > 0 && window.innerWidth < 900);
 
-  var NUM      = MOBILE ? 7 : 10;      /* عدد الشموع */
-  var ROWS     = MOBILE ? 4 : 6;       /* خطوط الأرضية */
-  var COLS     = MOBILE ? 0 : 3;       /* خطوط العمق */
-  var DPR_CAP  = MOBILE ? 1.25 : 1.75;
-  var FPS      = MOBILE ? 30 : 45;
-  var GLOW     = !MOBILE;              /* تعطيل shadowBlur على الهاتف */
+  var LOW_END = (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+                (navigator.deviceMemory && navigator.deviceMemory <= 4);
+  if (LOW_END) { MOBILE = true; }
+
+  var NUM      = MOBILE ? 5 : 8;       /* عدد الشموع */
+  var ROWS     = MOBILE ? 3 : 5;       /* خطوط الأرضية */
+  var COLS     = 0;                    /* معطّلة دائمًا */
+  var DPR_CAP  = MOBILE ? 1 : 1.4;
+  var FPS      = MOBILE ? 20 : 30;
+  var GLOW     = false;                /* shadowBlur معطّل بالكامل — أغلى عملية في Canvas */
+  var BEAM     = !MOBILE;              /* تدرج شعاع الروبوت — معطّل على الهاتف */
   var MIN_DT   = 1000 / FPS;
 
   var ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
@@ -252,20 +257,22 @@
     proj(beamX, ry, -30);
     var rx = _px, rry = _py, s = _ps;
 
-    /* شعاع المسح */
-    proj(beamX - 15, FLOOR - 4, 0); var l1x = _px, l1y = _py;
-    proj(beamX + 15, FLOOR - 4, 0);
-    var grad = ctx.createLinearGradient(rx, rry, l1x, l1y);
-    grad.addColorStop(0, "rgba(" + G + ",0.18)");
-    grad.addColorStop(1, "rgba(" + G + ",0)");
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.moveTo(rx - 3 * s, rry + 5 * s);
-    ctx.lineTo(l1x, l1y);
-    ctx.lineTo(_px, _py);
-    ctx.lineTo(rx + 3 * s, rry + 5 * s);
-    ctx.closePath();
-    ctx.fill();
+    /* شعاع المسح — تدرج مكلف، يُرسم فقط على الأجهزة الأقوى */
+    if (BEAM) {
+      proj(beamX - 15, FLOOR - 4, 0); var l1x = _px, l1y = _py;
+      proj(beamX + 15, FLOOR - 4, 0);
+      var grad = ctx.createLinearGradient(rx, rry, l1x, l1y);
+      grad.addColorStop(0, "rgba(" + G + ",0.18)");
+      grad.addColorStop(1, "rgba(" + G + ",0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.moveTo(rx - 3 * s, rry + 5 * s);
+      ctx.lineTo(l1x, l1y);
+      ctx.lineTo(_px, _py);
+      ctx.lineTo(rx + 3 * s, rry + 5 * s);
+      ctx.closePath();
+      ctx.fill();
+    }
 
     ctx.save();
     ctx.translate(rx, rry);
