@@ -230,10 +230,24 @@ h1{
 }
 .btn:active{transform:scale(.98)}
 
+.btn__text{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
 .btn__title{
   display:block;
   font-size:1.05rem;
   font-weight:700;
+}
+
+.btn__sub{
+  margin-top:.15rem;
+  font-size:.85rem;
+  font-weight:400;
+  color:var(--muted);
+  line-height:1.5;
 }
 
 /* لوحة شعار تيليجرام — نفس مقاس لوحات الوسطاء */
@@ -418,12 +432,7 @@ footer{
 /* ============================================================
    10. الوصولية والاستجابة
    ============================================================ */
-:focus-visible{
-  outline:2px solid #0b5d1e;
-  outline-offset:4px;
-  border-radius:14px;
-  box-shadow:0 0 0 4px rgba(11,93,30,.25);
-}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
 
 .sr-only{
   position:absolute;width:1px;height:1px;
