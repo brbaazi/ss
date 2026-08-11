@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ArabeTrading — روابط التداول الرسمية</title>
-<meta name="description" content="جرّب روبوتات تداول مجانية وابدأ أولى خطواتك في التداول " />
+<meta name="description" content="جرّب روبوتات تداول مجانية وابدأ أولى خطواتك في التداول الآلي" />
 <meta name="theme-color" content="#000000" />
 
 <link rel="icon" href="images/logo.png" type="image/png" />
@@ -220,86 +220,14 @@ h1{
   margin-top:1.1rem;
 }
 
-.btn{
-  position:relative;
-  overflow:hidden;
-  display:flex;               /* صف: الشعار + النص */
-  align-items:center;
-  gap:.9rem;
-  text-align:right;
-  padding:1rem 1.15rem;
-  background:var(--glass);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  backdrop-filter:blur(10px);
-  -webkit-backdrop-filter:blur(10px);
-  transition:transform var(--fast) var(--ease),
-             background var(--fast) var(--ease),
-             border-color var(--fast) var(--ease),
-             box-shadow var(--fast) var(--ease);
-}
 
-/* لمعة تمر فوق الزر عند المرور بالمؤشر */
-.btn::before{
-  content:"";
-  position:absolute;inset:0;
-  background:linear-gradient(110deg,transparent 25%,var(--green-soft) 50%,transparent 75%);
-  transform:translateX(100%);
-  opacity:0;
-  transition:transform .75s var(--ease),opacity .2s var(--ease);
-  pointer-events:none;
-}
-.btn:hover::before{transform:translateX(-100%);opacity:1}
 
-.btn:hover{
-  transform:translateY(-3px);
-  background:var(--glass-hover);
-  border-color:var(--green-line);
-  box-shadow:0 0 28px -8px var(--green-glow);
-}
-.btn:active{transform:scale(.98)}
 
-.btn__text{
-  display:flex;
-  flex-direction:column;
-  min-width:0;
-}
 
-.btn__title{
-  display:block;
-  font-size:1.05rem;
-  font-weight:700;
-}
 
-.btn__sub{
-  margin-top:.15rem;
-  font-size:.85rem;
-  font-weight:400;
-  color:var(--muted);
-  line-height:1.5;
-}
 
-/* لوحة شعار تيليجرام — نفس مقاس لوحات الوسطاء */
-.btn__logo{
-  flex-shrink:0;
-  box-sizing:border-box;
-  overflow:hidden;
-  width:64px;
-  height:64px;
-  border-radius:16px;
-}
 
-.btn__logo img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:cover;    /* غيّرها إلى contain إذا كان شعارك بخلفية شفافة */
-}
 
-.btn--primary{
-  border-color:var(--green-line);
-  box-shadow:0 0 24px -12px var(--green-glow);
-}
 
 /* ============================================================
    7. بطاقات الوسطاء
@@ -462,11 +390,10 @@ footer{
 
 @media (max-width:380px){
   .card__value{font-size:1rem}
-  .btn{padding:1rem}
-}
+  }
 
 @media (max-width:360px){
-  .broker__logo,.btn__logo{width:56px;height:56px}
+  .broker__logo{width:56px;height:56px}
   .broker__name{font-size:1.05rem}
   .broker__sub{font-size:.82rem}
 }
@@ -474,7 +401,7 @@ footer{
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .reveal{opacity:1;transform:none}
-  .broker::before,.btn::before{display:none}
+  .broker::before{display:none}
 }
 
 /* ============================================================
@@ -528,21 +455,20 @@ footer{
    يُستبدل بخلفية شبه شفافة أغمق قليلاً — الفرق البصري
    غير ملحوظ فوق خلفية سوداء، والمكسب في الأداء كبير */
 @media (max-width:768px){
-  .card,.btn,.broker{
+  .card,.broker{
     backdrop-filter:none;
     -webkit-backdrop-filter:none;
     background:rgba(255,255,255,.055);
   }
-  .btn:hover,.broker:hover{background:rgba(255,255,255,.085)}
+  .broker:hover{background:rgba(255,255,255,.085)}
 }
 
 /* على الأجهزة اللمسية لا فائدة من تأثيرات hover — إزالتها
    تمنع حسابات ورسمًا لا يراها المستخدم أبدًا */
 @media (hover:none){
-  .btn::before,.broker::before{display:none}
-  .btn:hover,.broker:hover,.copy:hover{transform:none}
-  .btn:hover{box-shadow:0 0 24px -12px var(--green-glow)}
-  .broker:hover{box-shadow:none;border-color:var(--border)}
+  .broker::before{display:none}
+  .broker:hover,.copy:hover{transform:none}
+    .broker:hover{box-shadow:none;border-color:var(--border)}
   .broker:hover .broker__logo{background:var(--plate);border-color:var(--border)}
   .broker:hover .broker__cta{transform:none;box-shadow:none}
 }
@@ -585,15 +511,18 @@ footer{
   <!-- الروابط -->
   <nav class="links" aria-label="روابط ArabeTrading">
 
-    <!-- زر تيليجرام بشعار محلي -->
-    <a class="btn btn--primary reveal" style="--delay:180ms" href="https://t.me/arabe_trading" target="_blank" rel="noopener noreferrer">
-      <span class="btn__logo">
-        <img src="images/telegram.png" alt="شعار تيليجرام" loading="eager" decoding="async" width="64" height="64" />
-      </span>
-      <span class="btn__text">
-        <span class="btn__title">رابط القناة على التلغرام</span>
-        <span class="btn__sub">روبوتات مجانية + شروحات وطريقة الاستخدام</span>
-      </span>
+    <!-- بطاقة مجموعة تيليجرام -->
+    <a class="broker reveal" style="--delay:180ms" href="https://t.me/arabe_trading" target="_blank" rel="noopener noreferrer">
+      <div class="broker__head">
+        <span class="broker__logo broker__logo--full">
+          <img src="images/telegram.png" alt="شعار مجموعة تيليجرام" loading="eager" decoding="async" width="64" height="64" />
+        </span>
+        <span class="broker__text">
+          <span class="broker__name">Telegram Group</span>
+          <span class="broker__sub">روبوتات مجانية + طريقة الاستخدام</span>
+        </span>
+      </div>
+      <span class="broker__cta">انضم إلى المجموعة</span>
     </a>
 
     <!-- بطاقة Exness — البطاقة كاملة رابط، لذلك الزر <span> وليس <a> -->
