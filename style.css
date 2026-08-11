@@ -457,18 +457,19 @@ footer{
 }
 
 /* ============================================================
-   11. الرسم المتحرك ثلاثي الأبعاد (EA)
+   11. الرسم المتحرك ثلاثي الأبعاد (EA) — خفيف وغير معيق
    ============================================================ */
 .stage{
   position:relative;
   width:100%;
   margin:.35rem auto -.35rem;
-  aspect-ratio:16/7;
-  pointer-events:none;   /* لا يعترض النقر على العناصر */
+  aspect-ratio:16/7;      /* يحجز المساحة مسبقًا — لا قفزات في التخطيط */
+  pointer-events:none;
   user-select:none;
+  contain:strict;         /* يعزل الرسم عن باقي الصفحة */
 }
 
-/* تلاشي الحواف ليندمج مع خلفية الصفحة السوداء */
+/* تلاشي الحواف ليندمج مع الخلفية السوداء */
 .stage::after{
   content:"";
   position:absolute;inset:0;
@@ -478,17 +479,22 @@ footer{
   pointer-events:none;
 }
 
+/* الكانفس يظهر بهدوء بعد جاهزيته فقط */
 .stage canvas{
   display:block;
   width:100%;
   height:100%;
-  opacity:.9;
+  opacity:0;
+  transition:opacity .8s var(--ease);
 }
+.stage canvas.is-ready{opacity:.9}
 
 @media (max-width:380px){
-  .stage{aspect-ratio:16/8;opacity:.85}
+  .stage{aspect-ratio:16/8}
+  .stage canvas.is-ready{opacity:.8}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .stage canvas{opacity:.55}
+  .stage canvas{transition:none}
+  .stage canvas.is-ready{opacity:.5}
 }

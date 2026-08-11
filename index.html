@@ -23,7 +23,7 @@
   <header class="reveal" style="--delay:0ms">
     <div class="logo-ring">
       <div class="logo">
-        <img src="images/logo.png" alt="شعار ArabeTrading" width="104" height="104" />
+        <img src="images/logo.png" alt="شعار ArabeTrading" width="104" height="104" fetchpriority="high" decoding="async" />
       </div>
     </div>
     <h1>ArabeTrading</h1>
@@ -51,7 +51,7 @@
     <!-- زر تيليجرام بشعار محلي -->
     <a class="btn btn--primary reveal" style="--delay:180ms" href="https://t.me/arabe_trading" target="_blank" rel="noopener noreferrer">
       <span class="btn__logo">
-        <img src="images/telegram.png" alt="شعار تيليجرام" loading="lazy" width="64" height="64" />
+        <img src="images/telegram.png" alt="شعار تيليجرام" loading="eager" decoding="async" width="64" height="64" />
       </span>
       <span class="btn__text">
         <span class="btn__title">رابط القناة على التلغرام</span>
@@ -63,7 +63,7 @@
     <a class="broker reveal" style="--delay:240ms" href="https://one.exnessonelink.com/a/pl53i99u6v" target="_blank" rel="noopener noreferrer">
       <div class="broker__head">
         <span class="broker__logo broker__logo--full">
-          <img src="images/exness.png" alt="شعار Exness" loading="lazy" width="64" height="64" />
+          <img src="images/exness.png" alt="شعار Exness" loading="eager" decoding="async" width="64" height="64" />
         </span>
         <span class="broker__text">
           <span class="broker__name">Exness</span>
@@ -77,7 +77,7 @@
     <a class="broker reveal" style="--delay:300ms" href="https://one.justmarkets.link/a/tpd95807fj" target="_blank" rel="noopener noreferrer">
       <div class="broker__head">
         <span class="broker__logo broker__logo--full">
-          <img src="images/justmarkets.png" alt="شعار JustMarkets" loading="lazy" width="64" height="64" />
+          <img src="images/justmarkets.png" alt="شعار JustMarkets" loading="eager" decoding="async" width="64" height="64" />
         </span>
         <span class="broker__text">
           <span class="broker__name">JustMarkets</span>
@@ -92,7 +92,7 @@
   <footer class="reveal" style="--delay:360ms">© 2026 ArabeTrading</footer>
 </main>
 
-<script src="animation.js"></script>
+<script src="animation.js" defer></script>
 <script src="script.js"></script>
 </body>
 </html>
