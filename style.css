@@ -455,3 +455,40 @@ footer{
   .reveal{opacity:1;transform:none}
   .broker::before,.btn::before{display:none}
 }
+
+/* ============================================================
+   11. الرسم المتحرك ثلاثي الأبعاد (EA)
+   ============================================================ */
+.stage{
+  position:relative;
+  width:100%;
+  margin:.35rem auto -.35rem;
+  aspect-ratio:16/7;
+  pointer-events:none;   /* لا يعترض النقر على العناصر */
+  user-select:none;
+}
+
+/* تلاشي الحواف ليندمج مع خلفية الصفحة السوداء */
+.stage::after{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to right,var(--black),transparent 18%,transparent 82%,var(--black)),
+    linear-gradient(to bottom,var(--black),transparent 22%,transparent 74%,var(--black));
+  pointer-events:none;
+}
+
+.stage canvas{
+  display:block;
+  width:100%;
+  height:100%;
+  opacity:.9;
+}
+
+@media (max-width:380px){
+  .stage{aspect-ratio:16/8;opacity:.85}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .stage canvas{opacity:.55}
+}

@@ -30,6 +30,11 @@
     <p class="desc">ابدأ رحلتك في التداول مع شركائنا الموثوقين.</p>
   </header>
 
+  <!-- الرسم المتحرك ثلاثي الأبعاد -->
+  <div class="stage reveal" style="--delay:60ms" aria-hidden="true">
+    <canvas id="eaCanvas"></canvas>
+  </div>
+
   <!-- اسم مستخدم تيليجرام -->
   <section class="card reveal" style="--delay:100ms" aria-labelledby="tgLabel">
     <p class="card__label" id="tgLabel"> الدعم المباشر على التلغرام</p>
@@ -87,6 +92,7 @@
   <footer class="reveal" style="--delay:360ms">© 2026 ArabeTrading</footer>
 </main>
 
+<script src="animation.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
